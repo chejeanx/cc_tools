@@ -62,8 +62,6 @@ class CCMapTitleField(CCField):
     @property
     def byte_data(self):
         title_bytes = b""
-        title_length = len(self.title) + 1
-        title_bytes += title_length.to_bytes(1, BYTE_ORDER)
         title_bytes += self.title.encode("ascii")
         title_bytes += b'\x00'
         return title_bytes
@@ -160,7 +158,6 @@ class CCTrapControlsField(CCField):
     @property
     def byte_data(self):
         byte_value = b""
-        byte_value += (len(self.traps)*10).to_bytes(2, BYTE_ORDER)
         for trap in self.traps:
             byte_value += trap.button_coord.x.to_bytes(2, BYTE_ORDER)
             byte_value += trap.button_coord.y.to_bytes(2, BYTE_ORDER)
@@ -239,7 +236,6 @@ class CCCloningMachineControlsField(CCField):
     @property
     def byte_data(self):
         byte_value = b""
-        byte_value += (len(self.machines)*8).to_bytes(2, BYTE_ORDER)
         for machine in self.machines:
             byte_value += machine.button_coord.x.to_bytes(2, BYTE_ORDER)
             byte_value += machine.button_coord.y.to_bytes(2, BYTE_ORDER)
@@ -318,8 +314,6 @@ class CCMapHintField(CCField):
     @property
     def byte_data(self):
         hint_bytes = b""
-        hint_length = len(self.hint)+1
-        hint_bytes += hint_length.to_bytes(1, BYTE_ORDER)
         hint_bytes += self.hint.encode("ascii")
         hint_bytes += b'\x00'
         return hint_bytes
@@ -356,8 +350,6 @@ class CCPasswordField(CCField):
     @property
     def byte_data(self):
         password_bytes = b""
-        password_length = len(self.password)+1
-        password_bytes += password_length.to_bytes(1, BYTE_ORDER)
         password_bytes += self.password.encode("ascii")
         password_bytes + b'\x00'
         return password_bytes
@@ -399,10 +391,9 @@ class CCMonsterMovementField(CCField):
     @property
     def byte_data(self):
         byte_value = b""
-        byte_value += (len(self.monsters)*2).to_bytes(2, BYTE_ORDER)
         for monster in self.monsters:
-            byte_value += monster.x.to_bytes(2, BYTE_ORDER)
-            byte_value += monster.y.to_bytes(2, BYTE_ORDER)
+            byte_value += monster.x.to_bytes(1, BYTE_ORDER)
+            byte_value += monster.y.to_bytes(1, BYTE_ORDER)
         return byte_value
 
 
