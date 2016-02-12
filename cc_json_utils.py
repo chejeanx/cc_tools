@@ -66,8 +66,6 @@ def make_ccDataFile_from_json(json_data):
 
         myCCDataFile.add_level(myLevel)
 
-        print(myCCDataFile)
-
     return myCCDataFile
 
 
@@ -76,8 +74,8 @@ def make_ccDataFile_from_json(json_data):
 #        The first element in the list is always the name of the python file being run
 # Command line format: <input json filename> <output dat filename>
 
-default_input_json_file = "data/pfgd_data.json"
-default_output_dat_file = "data/pfgd_data.dat"
+default_input_json_file = "data/cleo_cc1.json"
+default_output_dat_file = "data/cleo_cc1.dat"
 
 if len(sys.argv) == 3:
     input_json_file = sys.argv[1]
@@ -89,7 +87,7 @@ else:
     print("Unknown command line options. Using default values:", input_json_file, output_dat_file)
 
 # Reading the JSON data in from the input file
-json_reader = open("data/pfgd_data.json", "r")
+json_reader = open(input_json_file, "r")
 json_data = json.load(json_reader)
 json_reader.close() #Close the file now that we're done using it
 
@@ -98,5 +96,5 @@ cc_levels = make_ccDataFile_from_json(json_data)
 
 # Write data to DAT file
 print("Writing data to output file", output_dat_file)
-cc_dat_utils.write_cc_data_to_dat(cc_levels,output_dat_file)
+cc_dat_utils.write_cc_data_to_dat(cc_levels, output_dat_file)
 
